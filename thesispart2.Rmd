@@ -1,0 +1,56 @@
+---
+title: "Untitled"
+author: "Kingsley Iyawe"
+date: "1/27/2020"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+
+library(RMySQL)
+library(dbConnect)
+
+con <- dbConnect(MySQL(), user = "root", password = "Falc2019!!SB", dbname = "database1", host = "localhost")
+
+
+MyQuery <- "select * from transitions;"
+df <- dbGetQuery(con, MyQuery)
+
+df$trans_probs <- exp(-(df$u_conditional))
+df
+```
+
+```{r}
+MyQuery2 <- "select batter_dest, runner_on_1st_dest, runner_on_2nd_dest, runner_on_3rd_dest, transition from plays where batter_dest = 4;"
+
+df2 <- dbGetQuery(con, MyQuery2)
+
+```
+
+```{r}
+MyQuery3 <- "select batter_dest, runner_on_1st_dest, runner_on_2nd_dest, runner_on_3rd_dest, transition from plays where runner_on_1st_dest = 4;"
+
+df3 <- dbGetQuery(con , MyQuery3)
+
+```
+
+```{r}
+MyQuery4 <- "select batter_dest, runner_on_1st_dest, runner_on_2nd_dest, runner_on_3rd_dest, transition from plays where runner_on_2nd_dest = 4;"
+
+df4 <- dbGetQuery(con, MyQuery4)
+
+```
+
+```{r}
+MyQuery5 <- "select batter_dest, runner_on_1st_dest, runner_on_2nd_dest, runner_on_3rd_dest, transition from plays where runner_on_3rd_dest = 4;"
+
+df5 <- dbGetQuery(con, MyQuery5)
+
+```
